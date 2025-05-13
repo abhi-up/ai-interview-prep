@@ -1,11 +1,13 @@
 const Modal = ({ children, isOpen, onClose, hideHeader, title }) => {
+  if (!isOpen) return null
+
   return (
     <div className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black/40">
       {/* Modal Content */}
       <div className="relative flex flex-col w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Close Button */}
         <button
-          className="text-gray-400 bg-transparent hover:bg-orange-100 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center absolute top-3.5 right-3.5"
+          className="text-gray-400 bg-transparent hover:bg-orange-100 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center absolute top-3.5 right-3.5 cursor-pointer"
           type="button"
           onClick={onClose}
         >

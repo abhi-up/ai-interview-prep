@@ -28,7 +28,7 @@ const LandingPage = () => {
           <header className="flex justify-between items-center mb-16">
             <div className="text-xl text-black font-bold">PrepAI</div>
             <button
-              className="bg-gradient-to-r from-[#FF9324] to-[#e99a4b] hover:from-black hover:to-black text-sm font-semibold text-white px-7 py-2.5 rounded-full border border-white transition-colors"
+              className="bg-gradient-to-r from-[#FF9324] to-[#e99a4b] hover:from-black hover:to-black text-sm font-semibold text-white px-7 py-2.5 rounded-full border border-white transition-colors cursor-pointer"
               onClick={() => setOpenAuthModal(true)}
             >
               Login / Sign Up
@@ -62,7 +62,7 @@ const LandingPage = () => {
                 here.
               </p>
               <button
-                className="bg-black text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-yellow-100 hover:text-black border border-yellow-50 hover:border-yellow-300 transition-colors"
+                className="bg-black text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-yellow-100 hover:text-black border border-yellow-50 hover:border-yellow-300 transition-colors cursor-pointer"
                 onClick={handleCTA}
               >
                 Get Started
