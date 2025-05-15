@@ -11,6 +11,28 @@ const Login = ({ setCurrentPage }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault()
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address")
+      return
+    }
+
+    if (!password) {
+      setError("Please enter a password")
+      return
+    }
+
+    setError("")
+
+    // Login API Call
+    try {
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message)
+      } else {
+        setError("Something went wrong. Please try again.")
+      }
+    }
   }
 
   return (
