@@ -1,5 +1,5 @@
-const Session = require("../models/session")
-const Question = require("../models/question")
+const Session = require("../models/Session")
+const Question = require("../models/Question")
 
 // @desc Create a new session and linked questions
 // @route POST /api/sessions/create
