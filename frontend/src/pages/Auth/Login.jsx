@@ -1,40 +1,53 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import Input from "../../components/Inputs/Input"
-import { validateEmail } from "../../utils/helper"
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Input from "../../components/Inputs/Input";
+import { validateEmail } from "../../utils/helper";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_PATHS } from "../../utils/apiPaths";
 
 const Login = ({ setCurrentPage }) => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState(null)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!validateEmail(email)) {
-      setError("Please enter a valid email address")
-      return
+      setError("Please enter a valid email address");
+      return;
     }
 
     if (!password) {
-      setError("Please enter a password")
-      return
+      setError("Please enter a password");
+      return;
     }
 
-    setError("")
+    setError("");
 
     // Login API Call
     try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
+      });
+
+      const { token } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        navigate("/dashboard");
+      }
     } catch (error) {
       if (error.response && error.response.data.message) {
-        setError(error.response.data.message)
+        setError(error.response.data.message);
       } else {
-        setError("Something went wrong. Please try again.")
+        setError("Something went wrong. Please try again.");
       }
     }
-  }
+  };
 
   return (
     <div className="w-full max-w-md p-7 flex flex-col justify-center bg-white  rounded-xl">
@@ -71,7 +84,7 @@ const Login = ({ setCurrentPage }) => {
           <button
             className="font-medium text-primary underline cursor-pointer "
             onClick={() => {
-              setCurrentPage("signup")
+              setCurrentPage("signup");
             }}
           >
             SignUp
@@ -79,7 +92,7 @@ const Login = ({ setCurrentPage }) => {
         </p>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
