@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Input from "../../components/Inputs/Input"
@@ -99,3 +100,106 @@ const SignUp = ({ setCurrentPage }) => {
 }
 
 export default SignUp
+=======
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import Input from "../../components/Inputs/Input"
+import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector"
+import { validateEmail } from "../../utils/helper"
+
+const SignUp = ({ setCurrentPage }) => {
+  const [profilePic, setProfilePic] = useState(null)
+  const [fullName, setFullName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState(null)
+
+  const navigate = useNavigate()
+
+  const handleSignUp = async (e) => {
+    e.preventDefault()
+
+    if (!fullName) {
+      setError("Please enter your full name")
+      return
+    }
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address")
+      return
+    }
+
+    if (!password) {
+      setError("Please enter the password")
+      return
+    }
+
+    setError("")
+
+    // Signup API Call
+    try {
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message)
+      } else {
+        setError("Something went wrong. Please try again.")
+      }
+    }
+  }
+
+  return (
+    <div className="w-full max-w-md p-7 flex flex-col justify-center bg-white rounded-xl">
+      <h3 className="text-lg font-semibold text-black">Create an Account</h3>
+      <p className="text-xs text-slate-700 mt-[5px] mb-6">
+        Join us today by entering your details below.
+      </p>
+
+      <form onSubmit={handleSignUp} className="space-y-4">
+        <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
+
+        <Input
+          value={fullName}
+          onChange={({ target }) => setFullName(target.value)}
+          label="Full Name"
+          placeholder="John"
+          type="text"
+        />
+
+        <Input
+          value={email}
+          onChange={({ target }) => setEmail(target.value)}
+          label="Email Address"
+          placeholder="john@example.com"
+          type="text"
+        />
+
+        <Input
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
+          label="Password"
+          placeholder="Min 8 Characters"
+          type="password"
+        />
+
+        {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+
+        <button type="submit" className="btn-primary">
+          SIGN UP
+        </button>
+
+        <p className="text-[13px] text-slate-800 mt-3">
+          Already have an account?{" "}
+          <button
+            className="font-medium text-primary underline cursor-pointer"
+            onClick={() => setCurrentPage("login")}
+          >
+            Login
+          </button>
+        </p>
+      </form>
+    </div>
+  )
+}
+
+export default SignUp
+>>>>>>> b13f7b5 (user context provider)
